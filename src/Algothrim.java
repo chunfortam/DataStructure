@@ -337,19 +337,8 @@ public class Algothrim {
 
     public Tree.Node LCANaive(Tree tree, int target1, int target2){
 
-        ArrayList<Tree.Node> leftResult = LCANaiveHelper(tree.head,target1, new ArrayList<Tree.Node>());
-        ArrayList<Tree.Node> rightResult = LCANaiveHelper(tree.head,target2, new ArrayList<Tree.Node>());
-        //System.out.println(leftResult.size());
-        //System.out.println(rightResult.size());
-
-        for(Tree.Node i : leftResult){
-            //System.out.print(" " + i.getValue() + " ");
-        }
-
-        System.out.println();
-        for(Tree.Node j :rightResult ){
-           // System.out.print(" " + j.getValue() + " ");
-        }
+        ArrayList<Tree.Node> leftResult = LCANaiveHelper(tree.head,target1, new ArrayList<>());
+        ArrayList<Tree.Node> rightResult = LCANaiveHelper(tree.head,target2, new ArrayList<>());
 
         Tree.Node lowest = null;
 
@@ -374,9 +363,6 @@ public class Algothrim {
         LCAOneNodeHelper(tree.getNode(),null, node1.getValue(), list);
         LCAOneNodeHelper(tree.getNode(),null, node2.getValue(), list);
 
-        for (int key : list.keySet()) {
-          //  System.out.println(key + " " + list.get(key));
-        }
         Stack<Integer> node1Stack = new Stack<>();
         node1Stack.add(node1.getValue());
         Integer temp = list.get(node1.getValue());
@@ -459,15 +445,6 @@ public class Algothrim {
             copyLeft.add(node);
             ArrayList<Tree.Node> copyRight = new ArrayList<>(currentResult);
             copyRight.add(node);
-
-            /*if(node.hasLeft() && LCAHelper(node.getLeft(),target,copyLeft) != null){
-                return LCAHelper(node.getLeft(),target,copyLeft);
-            }else if(node.hasRight() && LCAHelper(node.getRight(),target,copyRight) != null){
-                return LCAHelper(node.getRight(),target,copyRight);
-            }else{
-                return null;
-            }*/
-
             return null;
         }
     }
@@ -572,7 +549,6 @@ public class Algothrim {
                 bigger = new ArrayList<>();
             }
         }
-
         return null;
     }
 
