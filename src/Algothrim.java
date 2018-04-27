@@ -4,6 +4,8 @@
 
 import java.util.Arrays;
 import java.util.*;
+
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.util.Pair;
 
 public class Algothrim {
@@ -220,17 +222,6 @@ public class Algothrim {
                 intermittent[i][j] = -1;
             }
         }
-       /* ArrayList<Pair<Integer,Integer>> temp1 = knapSackHelper(pair,Max,0,0,pair.size()-1,new ArrayList<Pair<Integer,Integer>>());
-
-        int temp1Value = 0;
-
-        for(Pair<Integer,Integer> i : temp1){
-            System.out.println("Key is "+ i.getKey() + " Value is " + i.getValue());
-            temp1Value += i.getValue();
-        }
-
-        return temp1Value; */
-
         return knapSack(pair,Max,0,0,pair.size() -1, intermittent);
     }
 
@@ -552,6 +543,233 @@ public class Algothrim {
         return null;
     }
 
+    public int jAndS(String j, String s){
+        Map<Character,Integer> jMap = new HashMap<>();
+        int result = 0;
+        for(int i = 0; i < j.length(); i ++){
+            jMap.put(j.charAt(i),0);
+        }
 
+        for(int i =0; i < s.length(); i ++){
+            char c = s.charAt(i);
+            if(jMap.containsKey(c)){
+                result++;
+            }
+        }
+        return result;
+    }
+
+    public int numOfCombination(String[] input){
+        Set resultSet  = new HashSet<String>();
+        String[] morse = new String[]{".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."};
+
+        for(String i : input){
+            StringBuilder sb = new StringBuilder();
+            for(int j = 0; j < i.length(); j ++){
+               char c = Character.toLowerCase(i.charAt(j));
+               int asciiCode = (int)c - 97;
+               sb.append(morse[asciiCode]);
+            }
+            resultSet.add(sb.toString());
+        }
+        return resultSet.size();
+    }
+
+    public List<Integer> selfDividingNumbers(int left, int right){
+
+        ArrayList<Integer> result = new ArrayList<>();
+        for(int i = left; i <= right; i ++){
+            int number = i;
+            int remainder = number % 10;
+            boolean selfDiving = true;
+
+            while(number > 0){ //if number = number %10, that's the last digit;
+                boolean endWithZero = remainder == 0;
+                if(!endWithZero && i % remainder == 0){ //check if the digit is 0 and i / digit == 0
+                    number = number / 10;
+                    remainder = number % 10;
+                }else{
+                    selfDiving = false;
+                    break;
+                }
+            }
+            if(selfDiving){
+                result.add(i);
+            }
+        }
+        return result;
+    }
+
+    public List<String> subdomainVisits(String[] cpdomains) {
+
+        Map<String,Integer> result = new HashMap<>();
+
+        for(String s : cpdomains){
+            String[] split = s.split(" ");
+            String domains = split[1];
+            int visitNumber = Integer.parseInt(split[0]);
+            String[] domainSplit = domains.split("\\."); //escape special character in java \\
+
+            //handle google.mail.com, mail.com
+            for(int i = 0; i < domainSplit.length ; i ++){
+                    String[] temp = Arrays.copyOfRange(domainSplit,i,domainSplit.length);
+                    String key = String.join(".",temp);
+                    //System.out.println(key);
+                    result.put(key, result.getOrDefault(key,0) + visitNumber);
+            }
+        }
+
+        Iterator<Map.Entry<String,Integer>> it = result.entrySet().iterator();
+        List<String> resultList = new ArrayList<>();
+        while(it.hasNext()){
+            Map.Entry<String,Integer> record = it.next();
+            String tempString = record.getValue().toString() + " " + record.getKey();
+            resultList.add(tempString);
+        }
+        return resultList;
+    }
+
+    public int[] numberOfLines(int[] widths, String S) {
+        if(!S.isEmpty()){
+            int numOfLines = 1;
+            int numOfWidth = 0;
+
+            for(int i = 0; i < S.length(); i ++){
+                char c = Character.toLowerCase(S.charAt(i));
+                int ascii = (int)c - 97;
+                int charWidth = widths[ascii];
+                int newWidth = numOfWidth + charWidth;
+
+                if( newWidth > 100){
+                    numOfWidth = charWidth;
+                    numOfLines ++;
+                }else{
+                    numOfWidth = newWidth;
+                }
+            }
+
+            return new int[]{numOfLines,numOfWidth};
+        }else{
+            return new int[]{0,0};
+        }
+    }
+
+    public String reverseString(String s) {
+
+        int startPointer = 0;
+        int endPointer = s.length() - 1;
+        char[] charArray = s.toCharArray();
+
+        while(startPointer < endPointer){
+            char temp = charArray[startPointer];
+            charArray[startPointer] = charArray[endPointer];
+            charArray[endPointer] = temp;
+            startPointer ++;
+            endPointer --;
+        }
+        return String.valueOf(charArray);
+    }
+
+    public String reverseWords(String s) {
+
+        String[] words = s.split(" ");
+        for(int i =0; i < words.length; i ++){
+            String reverseWord = reverseString(words[i]);
+            words[i] = reverseWord;
+        }
+        String result = String.join(" ",words); //mkString
+        return result;
+    }
+
+    public Boolean isSubsequence(String a, String b){
+
+        int aStarter = 0;
+        int bStarter = 0;
+        Boolean finishA = false;
+
+        while(aStarter < a.length() && bStarter < b.length()){
+            char aChar = a.charAt(aStarter);
+            char bChar = b.charAt(bStarter);
+
+            if(aChar == bChar){
+                if(aStarter == a.length() - 1){
+                    finishA = true;
+                }
+                aStarter++;
+            }
+            bStarter++;
+        }
+
+        if(aStarter == a.length() && finishA){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    public int[] longestIncreasingSubsequenceNaive(int[] input){
+        //set up base case
+
+        if(input.length == 0){
+            return new int[]{};
+        }else{
+            List<Integer> inputCurrent = new ArrayList<>();
+            inputCurrent.add(input[0]);
+            return helperLIS(input, inputCurrent,1);
+        }
+    }
+    public int[] helperLIS(int[] input, List<Integer> current, int index){
+        if(index == input.length){
+            int[] result = current.stream().mapToInt(i -> i).toArray();
+            return result;
+        }
+
+        int[] doesntChange = helperLIS(input,current,index +1);
+        List<Integer> addedElement = new ArrayList<>(current);//copy arraylist
+        int newElement = input[index];
+        int lastElement = current.get(current.size() - 1);
+        if(newElement >= lastElement) {
+            addedElement.add(input[index]);
+            int[] changed = helperLIS(input,addedElement,index + 1);
+            if(doesntChange.length > changed.length){
+                return doesntChange;
+            }else{
+                return changed;
+            }
+        }else{
+            return doesntChange;
+        }
+    }
+
+    public int longestIncreasingSubsequenceDP(int[] input){
+        //set up base case
+
+        if(input.length == 0){
+            return 0;
+        }else if(input.length ==1){
+            return 1;
+        }else{
+            int[] eachMax = new int[input.length];
+            for(int i = 0; i < eachMax.length; i ++){
+                eachMax[i] = Integer.MIN_VALUE;
+            }
+
+            eachMax[0] = 1;
+
+            for(int i = 1; i < eachMax.length; i ++){
+                int currentIMaxCount = Integer.MIN_VALUE;
+                for(int j = 0; j < i ; j ++){
+                    if(input[i] > input[j]){
+                        if(eachMax[j] + 1 > currentIMaxCount){
+                            currentIMaxCount = eachMax[j] + 1;
+                        }
+                    }
+                }
+                eachMax[i] = currentIMaxCount;
+            }
+            return eachMax[input.length - 1];
+        }
+    }
 }
 
