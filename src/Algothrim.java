@@ -802,5 +802,25 @@ public class Algothrim {
         }
         return result;
     }
+
+    public TreeNode trimBST(TreeNode root, int L, int R){
+
+        return null;
+    }
+
+    public int distributeCandies(int[] candies){
+
+        Map<Integer, Boolean> candiesKind = new HashMap<>();
+        for(int i = 0; i < candies.length; i ++){
+            candiesKind.put(candies[i],true);
+        }
+
+        int size = candiesKind.size();
+        if(size > candies.length /2){
+            return candies.length/2;
+        }else{
+            return size;
+        }
+    }
 }
 
