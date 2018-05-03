@@ -7,6 +7,7 @@ import java.util.*;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.util.Pair;
+import java.util.Stack;
 
 public class Algothrim {
 
@@ -770,6 +771,36 @@ public class Algothrim {
             }
             return eachMax[input.length - 1];
         }
+    }
+
+    public int baseBall(String[] input){
+        Stack<String> stock = new Stack<>();
+        int result = 0;
+        for(int i=0; i < input.length; i ++){
+            if(input[i] == "+"){
+                String score1Str = stock.pop();
+                String score2Str = stock.pop();
+                int score1 = Integer.parseInt(score1Str); //string to int
+                int score2 = Integer.parseInt(score2Str);
+                int score = score1 + score2;
+                String score3 = Integer.toString(score); //int to char
+                stock.push(score2Str);
+                stock.push(score1Str);
+                stock.push(score3);
+            }else if(input[i] == "D"){
+                int score = Integer.parseInt(stock.peek());
+                stock.push(Integer.toString(score*  2));
+            }else if(input[i] == "C"){
+                stock.pop();
+            }else{
+                stock.push(input[i]);
+            }
+        }
+
+        while(!stock.empty()){
+            result += Integer.parseInt(stock.pop());
+        }
+        return result;
     }
 }
 
