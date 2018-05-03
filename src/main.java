@@ -15,7 +15,9 @@ public class main {
         //testFindMaxSubArray();
         //testfindMaxSubsequence();
 
-        testKClosestPointNaive();
+        //System.out.println("+" == "+");
+        //testBaseBall();
+        testCandies();
 
 
     }
@@ -223,5 +225,26 @@ public class main {
         Map.Entry<Integer,Integer> result = algo.kClosestPoint(points,5);
         System.out.println(result.getKey() + "," + result.getValue());
        // System.out.println(resultNaive.getKey() + "," + resultNaive.getValue());
+    }
+
+    private static void testBaseBall(){
+        String[] input1 = {"5","2","C","D","+"};
+        String[] input2 = {"5","-2","4","C","D","9","+","+"};
+
+        System.out.println(algo.baseBall(input1));
+        System.out.println(algo.baseBall(input2));
+
+    }
+
+    private static void testCandies(){
+        int[] input1 = {1,1,2,2,3,3};
+        int[] input2 = {1,1,2,3};
+        int[] input3 = {1,2,3,4,5,6,7};
+        int[] input4 = {1,1,1,1,1};
+
+        System.out.println(algo.distributeCandies(input1));
+        System.out.println(algo.distributeCandies(input2));
+        System.out.println(algo.distributeCandies(input3));
+        System.out.println(algo.distributeCandies(input4));
     }
 }
