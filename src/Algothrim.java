@@ -773,11 +773,11 @@ public class Algothrim {
         }
     }
 
-    public int baseBall(String[] input){
+    public int baseBall(String[] ops){
         Stack<String> stock = new Stack<>();
         int result = 0;
-        for(int i=0; i < input.length; i ++){
-            if(input[i] == "+"){
+        for(int i=0; i < ops.length; i ++){
+            if(ops[i] == "+"){
                 String score1Str = stock.pop();
                 String score2Str = stock.pop();
                 int score1 = Integer.parseInt(score1Str); //string to int
@@ -787,13 +787,13 @@ public class Algothrim {
                 stock.push(score2Str);
                 stock.push(score1Str);
                 stock.push(score3);
-            }else if(input[i] == "D"){
+            }else if(ops[i] == "D"){
                 int score = Integer.parseInt(stock.peek());
                 stock.push(Integer.toString(score*  2));
-            }else if(input[i] == "C"){
+            }else if(ops[i] == "C"){
                 stock.pop();
             }else{
-                stock.push(input[i]);
+                stock.push(ops[i]);
             }
         }
 
