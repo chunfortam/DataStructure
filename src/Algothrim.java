@@ -822,5 +822,22 @@ public class Algothrim {
             return size;
         }
     }
+
+    public boolean isToeplitzMatrix(int[][] matrix){
+        for(int startOfDia = matrix.length - 1; startOfDia >=0; startOfDia --){
+            int a = startOfDia;
+            int b = 0;
+
+            while(a + 1< matrix.length && b + 1< matrix[0].length){
+                if(matrix[a][b] != matrix[a+1][b+1]){
+                    return false;
+                }else{
+                    a ++;
+                    b ++;
+                }
+            }
+        }
+        return true;
+    }
 }
 

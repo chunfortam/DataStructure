@@ -17,7 +17,7 @@ public class main {
 
         //System.out.println("+" == "+");
         //testBaseBall();
-        testCandies();
+        testIsToeplitzMatrix();
 
 
     }
@@ -246,5 +246,11 @@ public class main {
         System.out.println(algo.distributeCandies(input2));
         System.out.println(algo.distributeCandies(input3));
         System.out.println(algo.distributeCandies(input4));
+    }
+    private static void testIsToeplitzMatrix(){
+        int[][] matrix = {{1,2,3,4},{5,1,2,3},{9,5,1,2}};
+        int[][] matrix2 = {{6,7},{4,6},{4,5}};
+        System.out.println(algo.isToeplitzMatrix(matrix));
+        System.out.println(algo.isToeplitzMatrix(matrix2));
     }
 }
