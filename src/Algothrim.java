@@ -1,11 +1,5 @@
-/**
- * Created by ctam on 3/5/18.
- */
-
 import java.util.Arrays;
 import java.util.*;
-
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.util.Pair;
 import java.util.Stack;
 
@@ -487,12 +481,8 @@ public class Algothrim {
             result.add(new AbstractMap.SimpleEntry<>(pair,distance));
         }
 
-        result.sort(new Comparator<Map.Entry<Map.Entry<Integer,Integer>, Double>>() {
-
-            @Override
-            public int compare(Map.Entry<Map.Entry<Integer,Integer>, Double> o1, Map.Entry<Map.Entry<Integer,Integer>, Double> o2){
+        result.sort((Map.Entry<Map.Entry<Integer,Integer>, Double> o1, Map.Entry<Map.Entry<Integer,Integer>, Double> o2) -> {
                 return o1.getValue().compareTo(o2.getValue());
-            }
         });
 
         return result.get(target - 1).getKey();
@@ -678,8 +668,7 @@ public class Algothrim {
             String reverseWord = reverseString(words[i]);
             words[i] = reverseWord;
         }
-        String result = String.join(" ",words); //mkString
-        return result;
+        return String.join(" ",words); //mkString
     }
 
     public Boolean isSubsequence(String a, String b){
@@ -701,7 +690,7 @@ public class Algothrim {
             bStarter++;
         }
 
-        if(aStarter == a.length() && finishA){
+        if(finishA && aStarter == a.length() ){
             return true;
         }else{
             return false;
@@ -722,8 +711,7 @@ public class Algothrim {
     }
     public int[] helperLIS(int[] input, List<Integer> current, int index){
         if(index == input.length){
-            int[] result = current.stream().mapToInt(i -> i).toArray();
-            return result;
+            return current.stream().mapToInt(i -> i).toArray();
         }
 
         int[] doesntChange = helperLIS(input,current,index +1);
@@ -776,24 +764,33 @@ public class Algothrim {
     public int baseBall(String[] ops){
         Stack<String> stock = new Stack<>();
         int result = 0;
-        for(int i=0; i < ops.length; i ++){
-            if(ops[i] == "+"){
-                String score1Str = stock.pop();
-                String score2Str = stock.pop();
-                int score1 = Integer.parseInt(score1Str); //string to int
-                int score2 = Integer.parseInt(score2Str);
-                int score = score1 + score2;
-                String score3 = Integer.toString(score); //int to char
-                stock.push(score2Str);
-                stock.push(score1Str);
-                stock.push(score3);
-            }else if(ops[i] == "D"){
-                int score = Integer.parseInt(stock.peek());
-                stock.push(Integer.toString(score*  2));
-            }else if(ops[i] == "C"){
-                stock.pop();
-            }else{
-                stock.push(ops[i]);
+        for(String s: ops){
+            switch(s){
+                case ("+"): {
+                    String score1Str = stock.pop();
+                    String score2Str = stock.pop();
+                    int score1 = Integer.parseInt(score1Str); //string to int
+                    int score2 = Integer.parseInt(score2Str);
+                    int score = score1 + score2;
+                    String score3 = Integer.toString(score); //int to char
+                    stock.push(score2Str);
+                    stock.push(score1Str);
+                    stock.push(score3);
+                    break;
+                }
+                case ("D"): {
+                    int score = Integer.parseInt(stock.peek());
+                    stock.push(Integer.toString(score * 2));
+                    break;
+                }
+                case ("C"): {
+                    stock.pop();
+                    break;
+                }
+                default: {
+                    stock.push(s);
+                    break;
+                }
             }
         }
 
@@ -811,8 +808,8 @@ public class Algothrim {
     public int distributeCandies(int[] candies){
 
         Map<Integer, Boolean> candiesKind = new HashMap<>();
-        for(int i = 0; i < candies.length; i ++){
-            candiesKind.put(candies[i],true);
+        for(int i: candies){
+            candiesKind.put(i,true);
         }
 
         int size = candiesKind.size();
@@ -851,6 +848,53 @@ public class Algothrim {
             }
         }
         return true;
+    }
+
+    /**
+     * A sentence S is given, composed of words separated by spaces. Each word consists of lowercase and uppercase letters only.
+     * We would like to convert the sentence to `Goat Latin`
+     *
+     * The rules of Goat Latin are as follows:
+     *      if a word begins with a vowel(a,e,i,o,i),append "ma" to the end of the word
+     *      apple becmoes applema
+     *
+     *      if a word begins with a consonant(not a vowel), remove the first letter and append it to the end, then add "ma"
+     *      goat becomes oatgma
+     *
+     *      Add one letter 'a' to the end of each word per its word index in the sentence, starting with 1.
+     *      For example, the first world gets "a" added to the end, the second word gets "aa" added to the end and so on
+     *
+     *      Return the final sentence representing the conversion from S to Goat Latin
+     *
+     *      I speak Goat Latin
+     *
+     *      Imaa peaksmaaa oatGmaaaa atinLmaaaaa
+     *
+     *      The quick brown fox jumped over the lazy dog
+     *      heTmaa uickqmaa rownbmaaaa oxfmaaaa umpedjmaaaaa overmaaaaaaa hetmaaaaaaaa azlmaaaaaaaaa ogdmaaaaaaaaaa
+     */
+
+    public String toGoatLatin(String S){
+
+        String[] words = S.split(" ");
+        for(int i =0; i < words.length; i ++){
+            char firstChar = words[i].charAt(0);
+            Set<Character> vowelSet = new HashSet<>();
+            vowelSet.add('a');
+            vowelSet.add('e');
+            vowelSet.add('i');
+            vowelSet.add('o');
+            vowelSet.add('u');
+
+            if(vowelSet.contains(firstChar)){
+                words[i] += "ma";
+            }else{
+                words[i] = words[i].substring(1,words[i].length()) + firstChar  + "ma";
+            }
+
+            words[i] += new String(new char[i + 1]).replace("\0", "a"); //string repeat, repeat string
+        }
+        return String.join(" ",words);
     }
 }
 
