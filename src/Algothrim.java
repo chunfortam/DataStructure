@@ -837,6 +837,19 @@ public class Algothrim {
                 }
             }
         }
+        for(int startOfDia = matrix[0].length - 1; startOfDia >=0; startOfDia --){
+            int a = 0;
+            int b = startOfDia;
+
+            while(a + 1< matrix.length && b + 1< matrix[0].length){
+                if(matrix[a][b] != matrix[a+1][b+1]){
+                    return false;
+                }else{
+                    a ++;
+                    b ++;
+                }
+            }
+        }
         return true;
     }
 }

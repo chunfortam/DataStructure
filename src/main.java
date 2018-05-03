@@ -250,7 +250,9 @@ public class main {
     private static void testIsToeplitzMatrix(){
         int[][] matrix = {{1,2,3,4},{5,1,2,3},{9,5,1,2}};
         int[][] matrix2 = {{6,7},{4,6},{4,5}};
+        int[][]  matrix3 = {{1,3,3,4},{1,1,2,3}};
         System.out.println(algo.isToeplitzMatrix(matrix));
         System.out.println(algo.isToeplitzMatrix(matrix2));
+        System.out.println(algo.isToeplitzMatrix(matrix3));
     }
 }
