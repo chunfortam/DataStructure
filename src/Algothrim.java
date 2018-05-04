@@ -942,5 +942,43 @@ public class Algothrim {
             }
         }
     }
+
+    /**
+     * Given a string S, we can transform every letter individually to be lowercase or uppercase to create another string.
+     * Return a list of all possible strings we could create
+     *
+     * S = "a1b2"
+     * ["a1b2","a1B2","A1b2","A1B2"]
+     *
+     * S = "3z4"
+     * ["3z4',"3Z4"]
+     *
+     * S = "12345"
+     * ["12345"]
+     *
+     *
+     */
+
+    public List<String>letterCasePermutation(String S){ //to be confirmed
+        int pointer = 0;
+        ArrayList<String> result = new ArrayList<>();
+        result.add(S.toLowerCase());
+
+        while(pointer < S.length()){
+            char pointerChar = result.get(0).charAt(pointer);
+            if(Character.isAlphabetic(pointerChar)){ //check if character is letter digit
+                int resultSize = result.size();
+                for(int i =0; i < resultSize; i ++){ //result.size() change for each i loop
+                    String current = result.get(i);
+                    String newString = current.substring(0,pointer) + Character.toUpperCase(pointerChar)  // change character in string
+                            + current.substring(pointer +1, current.length());
+                    result.add(newString);
+                }
+            }
+            pointer ++;
+        }
+        return result;
+    }
+
 }
 

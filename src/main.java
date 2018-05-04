@@ -17,7 +17,7 @@ public class main {
 
         //System.out.println("+" == "+");
         //testBaseBall();
-        testIsToeplitzMatrix();
+        testLetterCasePermutation();
 
 
     }
@@ -254,5 +254,43 @@ public class main {
         System.out.println(algo.isToeplitzMatrix(matrix));
         System.out.println(algo.isToeplitzMatrix(matrix2));
         System.out.println(algo.isToeplitzMatrix(matrix3));
+    }
+
+    private static void testToGoatLatin(){
+
+        String input1 = "I speak Goat Latin";
+        String input2 = "The quick brown fox jumped over the lazy dog";
+
+        System.out.println(input1);
+        System.out.println(algo.toGoatLatin(input1));
+        System.out.println(input2);
+        System.out.println(algo.toGoatLatin(input2));
+
+    }
+
+    private static void testRotateString(){
+        String inputA1 = "abcde";
+        String inputB1 = "cdeba";
+
+        String inputA2 = "cdfer123";
+        String inputB2 = "er123cdfe";
+
+        System.out.println(algo.rotateString(inputA1,inputB1));
+        System.out.println(algo.rotateString(inputA2,inputB2));
+        System.out.println(algo.rotateString(inputA1,inputA1));
+    }
+
+    private static void testLetterCasePermutation(){
+        String S1 = "a1b2";
+        String S2 = "a1b2c3d4e5";
+        String S3 = "12345";
+
+        List<String> resultS2 = algo.letterCasePermutation(S2);
+        Set<String>hset = new HashSet<>(resultS2); //List to Set
+
+
+        System.out.println(algo.letterCasePermutation(S1).toString());
+        System.out.println(algo.letterCasePermutation(S2).toString());
+        System.out.println(algo.letterCasePermutation(S3).toString());
     }
 }
