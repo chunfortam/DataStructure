@@ -980,5 +980,55 @@ public class Algothrim {
         return result;
     }
 
+    /**
+     * Given an array of integers where 1 <= a[i] <= n (n = size of array), some elemnts appear twice and others appear once
+     *
+     *
+     * Find all the elemnts of[1,n] inclusive that do not appear in this array
+     *
+     * Do this without extra space and O(n)
+     *
+     * Input [4,3,2,7,8,2,3,1]
+     * Output [5,6]
+     */
+    public List<Integer> findDisappearedNumbers(int[] nums){
+
+        int duplicatePointer = nums.length - 1 ;
+        int currentPoitner = 0;
+
+        while(currentPoitner <= duplicatePointer){
+            int currentValue = nums[currentPoitner];
+            if(currentValue == currentPoitner + 1 || currentValue == 0){
+                currentPoitner ++;
+            }else{
+                int swapTarget = nums[currentValue - 1]; //i have a 4 in my pocket, hence looking at value of nums[3]
+                if( swapTarget != currentValue){
+                    nums[currentPoitner] = swapTarget;
+                    nums[currentValue - 1] = currentValue;
+                }else{ //we have seen a duplicate
+                    boolean swapped = false;
+                    while(!swapped){
+                        int duplicateSwapTarget = nums[duplicatePointer];
+                        if(duplicateSwapTarget != duplicatePointer + 1){
+                            nums[currentPoitner] = duplicateSwapTarget;
+                            nums[duplicatePointer] = 0;
+                            swapped = true;
+                        }
+                        duplicatePointer --;
+                    }
+                }
+            }
+        }
+
+        ArrayList<Integer> result = new ArrayList<>();
+        for(int i = 0; i < nums.length; i ++){
+            if(nums[i] != i + 1){
+                result.add(i+1);
+            }
+        }
+
+        return result;
+    }
+
 }
 

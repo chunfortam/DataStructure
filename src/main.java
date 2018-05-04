@@ -17,7 +17,7 @@ public class main {
 
         //System.out.println("+" == "+");
         //testBaseBall();
-        testLetterCasePermutation();
+        testFindDisappearedNumbers();
 
 
     }
@@ -292,5 +292,13 @@ public class main {
         System.out.println(algo.letterCasePermutation(S1).toString());
         System.out.println(algo.letterCasePermutation(S2).toString());
         System.out.println(algo.letterCasePermutation(S3).toString());
+    }
+
+    private static void testFindDisappearedNumbers(){
+        int[] input1 = {4,3,2,7,8,2,3,5};
+
+        List<Integer> resultS2 = algo.findDisappearedNumbers(input1);
+
+        System.out.println(resultS2);
     }
 }
