@@ -17,7 +17,7 @@ public class main {
 
         //System.out.println("+" == "+");
         //testBaseBall();
-        testFindDisappearedNumbers();
+        testShortestToChar();
 
 
     }
@@ -300,5 +300,25 @@ public class main {
         List<Integer> resultS2 = algo.findDisappearedNumbers(input1);
 
         System.out.println(resultS2);
+    }
+
+    private static void testMaxAreaOfIsland(){
+        int[][] input1 = {{1,1,1,1,1,1,1},
+                {0,0,1,1,1,1,1}};
+
+        int result = algo.maxAreaOfIsland(input1);
+
+        System.out.println(result);
+    }
+
+    private static void testShortestToChar(){
+        String s= "loveleetcodeabc";
+        char c = 'e';
+
+        int[] result = algo.shortestToChar(s,c);
+
+        for(int i =0; i < result.length; i ++){
+           System.out.print(result[i] + " ");
+        }
     }
 }

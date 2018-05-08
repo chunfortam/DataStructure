@@ -1095,38 +1095,29 @@ public class Algothrim {
     public int[] shortestToChar(String S, char C){
         //Be careful with loop condition plus 1 minus 1, and start end next iterator
 
+        int previousTarget = 0;
         int[] result = new int[S.length()];
-        ArrayList<Integer> allTargetPosition = new ArrayList<>();
-        allTargetPosition.add(-S.length());
+
+        int leftPointer = 0;
+        int rightPointer = -S.length();
 
         for(int i = 0; i < S.length(); i ++){
             if(S.charAt(i) == C){
-                allTargetPosition.add(i);
+                leftPointer = rightPointer;
+                rightPointer = i;
+                for(int j = previousTarget; j < rightPointer; j ++){
+                    if(j - leftPointer < rightPointer - j){
+                        result[j] = j -leftPointer;
+                    }else{
+                        result[j] = rightPointer - j;
+                    }
+                }
+                previousTarget = i;
             }
         }
 
-        if(allTargetPosition.isEmpty()){
-            return null;
-        }
-
-        allTargetPosition.add(Integer.MAX_VALUE);
-        Iterator<Integer> loopArray = allTargetPosition.iterator();
-        int leftTarget = loopArray.next();
-        int rightTarget = loopArray.next();
-
-        for(int i = 0; i < S.length(); i ++){
-            if(i > rightTarget){
-                leftTarget = rightTarget;
-                rightTarget = loopArray.next();
-            }
-            int leftDistance = i - leftTarget;
-            int rightDistance = rightTarget - i;
-
-            if(leftDistance < rightDistance){
-                result[i] = leftDistance;
-            }else{
-                result[i] = rightDistance;
-            }
+        for(int i = previousTarget;i < S.length(); i ++){
+            result[i] = i - previousTarget;
         }
         return result;
     }
