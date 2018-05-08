@@ -1122,5 +1122,43 @@ public class Algothrim {
         return result;
     }
 
+    /**
+     * You have a list of points in the plane. Return the area of the larget triangle that can be formed by any
+     * of 3 the points
+     *
+     * Input: points = [[0,0],[0,1],[1,0],[0,2],[2,0]]
+     * Output 2
+     */
+
+    /**combination = order doesnt matter. Permutation = order matters. Combination lock should be permutation lock
+     *  Number of combination = n!/r!(n-r)!  , permutation = n!/(n-r)!
+     *
+     *  triagle area
+     */
+
+    public double largestTriangleArea(int[][] points){
+        int maxArea = 0;
+        for(int i = 0; i < points.length; i ++){
+            for(int j = i + 1; j < points.length;j ++){
+                for(int k = j + 1; k <points.length;k++){
+                    int aX = points[i][0];
+                    int aY = points[i][1];
+                    int bX = points[j][0];
+                    int bY = points[j][1];
+                    int cX = points[k][0];
+                    int cY = points[k][1];
+
+                    //https://www.mathopenref.com/coordtrianglearea.html
+                    int area = Math.abs(aX * (bX - cY) + bX * (cY - aY) + cX * (aY - bY))/2;
+                    if(area > maxArea){
+                        maxArea = area;
+                    }
+                }
+            }
+        }
+        return maxArea;
+    }
+
+
 }
 
