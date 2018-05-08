@@ -1030,5 +1030,106 @@ public class Algothrim {
         return result;
     }
 
+    public int maxAreaOfIsland(int [][] grid){
+
+        int maxArea = 0;
+        for(int y = 0; y < grid.length; y ++){
+            for(int x = 0; x < grid[0].length; x ++){
+                Stack<KeyValuePair> checkStack = new Stack<>();
+                int area = 0;
+                checkStack.add(new KeyValuePair(y,x));
+                    while(!checkStack.isEmpty()){
+                        KeyValuePair currentLocation = checkStack.pop();
+                        int currentX = currentLocation.x;
+                        int currentY = currentLocation.y;
+                        if(grid[currentY][currentX] == 1){
+                            area ++;
+                            grid[currentY][currentX] = 2;
+                            if(currentY - 1 >= 0){
+                                KeyValuePair upper = new KeyValuePair(currentY - 1,currentX);
+                                checkStack.add(upper);
+                            }
+                            if(currentY + 1 <= grid.length - 1){
+                                KeyValuePair lower = new KeyValuePair(currentY + 1,currentX);
+                                checkStack.add(lower);
+                            }
+                            if(currentX - 1 >= 0){
+                                KeyValuePair left = new KeyValuePair(currentY,currentX - 1);
+                                checkStack.add(left);
+                            }
+                            if(currentX + 1 <= grid[0].length - 1){
+                                KeyValuePair right = new KeyValuePair(currentY,currentX + 1);
+                                checkStack.add(right);
+                            }
+                    }
+                }
+                if(area > maxArea){
+                        maxArea = area;
+                }
+            }
+        }
+        return maxArea;
+    }
+
+    class KeyValuePair{
+        int x ;
+        int y;
+        public KeyValuePair(int y, int x){
+            this.x = x;
+            this.y = y;
+        }
+    }
+
+    /**
+     * Given a string S and a character C, return an array of integers represnting the shortest distance from the
+     * character C in the string
+     *
+     * Input: S = "loveleetcode", C = 'e'
+     *
+     * Output = [3,2,1,0,1,0,0,1,2,2,1,0]
+     *
+     *
+     *
+     */
+
+    public int[] shortestToChar(String S, char C){
+        //Be careful with loop condition plus 1 minus 1, and start end next iterator
+
+        int[] result = new int[S.length()];
+        ArrayList<Integer> allTargetPosition = new ArrayList<>();
+        allTargetPosition.add(-S.length());
+
+        for(int i = 0; i < S.length(); i ++){
+            if(S.charAt(i) == C){
+                allTargetPosition.add(i);
+            }
+        }
+
+        if(allTargetPosition.isEmpty()){
+            return null;
+        }
+
+        allTargetPosition.add(Integer.MAX_VALUE);
+        Iterator<Integer> loopArray = allTargetPosition.iterator();
+        int leftTarget = loopArray.next();
+        int rightTarget = loopArray.next();
+
+        for(int i = 0; i < S.length(); i ++){
+            if(i > rightTarget){
+                leftTarget = rightTarget;
+                rightTarget = loopArray.next();
+            }
+            int leftDistance = i - leftTarget;
+            int rightDistance = rightTarget - i;
+
+            if(leftDistance < rightDistance){
+                result[i] = leftDistance;
+            }else{
+                result[i] = rightDistance;
+            }
+        }
+        return result;
+    }
+
 }
 
