@@ -1149,6 +1149,7 @@ public class Algothrim {
                     int cY = points[k][1];
 
                     //https://www.mathopenref.com/coordtrianglearea.html
+                    //|A x ( B y − C y ) + B x ( C y − A y ) + C x ( A y − B y ) / 2|
                     int area = Math.abs(aX * (bX - cY) + bX * (cY - aY) + cX * (aY - bY))/2;
                     if(area > maxArea){
                         maxArea = area;
@@ -1159,6 +1160,67 @@ public class Algothrim {
         return maxArea;
     }
 
+    /**
+     * Given an array of integers, find if the array contains any duplicates
+     *
+     * Your function should return true if any value appears at least twice in the array, and it should return
+     * false if every element is distinct
+     *
+     * Bit solution exists i think
+     */
 
+    public boolean containDuplicate(int[] input){
+        HashSet<Integer> temp= new HashSet<>();
+        for(int i : input){
+            if(temp.contains(i)){
+                return true;
+            }else{
+                temp.add(i);
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Given a non-empty integer array of size n, find the minimum number of moves required to make
+     * all array elements equal where a move is incrementing n -1 elements by 1
+     *
+     * [1,2,3] => [2,3,3] => [3,4,3] => [4,4,4]
+     *
+     */
+
+    public int minMoves(int[] nums){
+
+        if(nums.length == 0){
+            return 0;
+        }
+
+        boolean allSame= false;
+        int index = 0;
+
+        while(!allSame){
+            allSame  = true;
+            int maxIndex = 0;
+            int previous = nums[0];
+            for(int i = 0; i < nums.length; i ++){
+                if(nums[i] > nums[maxIndex]) {
+                    maxIndex = i;
+                }
+                if(nums[i] != previous){
+                    allSame = false;
+                }
+            }
+            if(allSame){
+                break;
+            }
+            for(int i = 0; i < nums.length; i ++){
+                if(i != maxIndex){
+                    nums[i] ++;
+                }
+            }
+            index ++;
+        }
+        return index;
+    }
 }
 

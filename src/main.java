@@ -17,7 +17,7 @@ public class main {
 
         //System.out.println("+" == "+");
         //testBaseBall();
-        testShortestToChar();
+        testMinMoves();
 
 
     }
@@ -320,5 +320,13 @@ public class main {
         for(int i =0; i < result.length; i ++){
            System.out.print(result[i] + " ");
         }
+    }
+
+    private static void testMinMoves(){
+        int[] input = {1,2,3};
+        int[] input2 = {3,9,10};
+
+        System.out.println(algo.minMoves(input));
+        System.out.println(algo.minMoves(input2));
     }
 }
