@@ -343,8 +343,10 @@ public class main {
 
         int[] input1 = {1,2,2,3,1,4,2};
         int[] input2 = {1,2,2,3,1,4,4};
+        int[] input3 = {1,3,2,2,3,1};
 
         System.out.println(algo.findShortestSubArray(input1));
         System.out.println(algo.findShortestSubArray(input2));
+        System.out.println(algo.findShortestSubArray(input3));
     }
 }

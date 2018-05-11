@@ -1273,6 +1273,7 @@ public class Algothrim {
      *
      * Input: [1,2,2,3,1,4,2]
      * Output: 6
+     *
      */
 
     public int findShortestSubArray(int[] nums){
@@ -1300,7 +1301,10 @@ public class Algothrim {
             if(next.getValue().size() >= max){
                 ArrayList<Integer> currentArrayList = next.getValue();
                 max = currentArrayList.size();
-                currentMinDisatnce = currentArrayList.get(currentArrayList.size() - 1) - currentArrayList.get(0) + 1 ;
+                int thisSubArrayMin = currentArrayList.get(currentArrayList.size() - 1) - currentArrayList.get(0) + 1;
+                if(thisSubArrayMin < currentMinDisatnce){
+                    currentMinDisatnce = thisSubArrayMin;
+                }
             }
         }
         return currentMinDisatnce;
