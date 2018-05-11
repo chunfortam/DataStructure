@@ -921,6 +921,8 @@ public class Algothrim {
 
         if(A.length() != B.length()){
             return false;
+        }else if(A.length() == 0 || B.length() == 0) {
+            return false;
         }else{
             int aPointer = 0;
             char firstCharB = B.charAt(0);
