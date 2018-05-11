@@ -1150,8 +1150,9 @@ public class Algothrim {
                     int cY = points[k][1];
 
                     //https://www.mathopenref.com/coordtrianglearea.html
-                    //|A x ( B y − C y ) + B x ( C y − A y ) + C x ( A y − B y ) / 2|
-                    double area = Math.abs(aX * (bX - cY) + bX * (cY - aY) + cX * (aY - bY))/2;
+                    //|A x ( B y − C y ) + B x ( C y − A y ) + C x ( A y − B y ) / 2|\
+                    double math = aX * (bY - cY) + bX * (cY - aY) + cX * (aY - bY);
+                    double area = Math.abs(math)/2; //be careful Math.asb maybe take int return int
                     if(area > maxArea){
                         maxArea = area;
                     }
