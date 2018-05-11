@@ -17,7 +17,7 @@ public class main {
 
         //System.out.println("+" == "+");
         //testBaseBall();
-        testFindShortestSubArray();
+        testRotateString();
 
 
     }
@@ -270,10 +270,10 @@ public class main {
 
     private static void testRotateString(){
         String inputA1 = "abcde";
-        String inputB1 = "cdeba";
+        String inputB1 = "cdeab";
 
         String inputA2 = "cdfer123";
-        String inputB2 = "er123cdfe";
+        String inputB2 = "r123cdfe";
 
         System.out.println(algo.rotateString(inputA1,inputB1));
         System.out.println(algo.rotateString(inputA2,inputB2));
@@ -348,5 +348,11 @@ public class main {
         System.out.println(algo.findShortestSubArray(input1));
         System.out.println(algo.findShortestSubArray(input2));
         System.out.println(algo.findShortestSubArray(input3));
+    }
+
+    private static void testlargestTriangleArea(){
+        int[][] input1 = {{1,0},{0,0},{0,1}};
+
+        System.out.println(algo.largestTriangleArea(input1));
     }
 }

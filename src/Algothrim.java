@@ -936,7 +936,7 @@ public class Algothrim {
                 return false;
             }else{
 
-                String firstHalfRev = new StringBuilder(A.substring(0, aPointer)).reverse().toString();// String Reversed
+                String firstHalfRev = A.substring(0, aPointer);// String Reversed
                 String secondHalf = A.substring(aPointer,A.length());
 
                 return (secondHalf+firstHalfRev).equals(B);
