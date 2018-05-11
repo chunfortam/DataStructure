@@ -1138,7 +1138,7 @@ public class Algothrim {
      */
 
     public double largestTriangleArea(int[][] points){
-        int maxArea = 0;
+        double maxArea = 0;
         for(int i = 0; i < points.length; i ++){
             for(int j = i + 1; j < points.length;j ++){
                 for(int k = j + 1; k <points.length;k++){
@@ -1151,7 +1151,7 @@ public class Algothrim {
 
                     //https://www.mathopenref.com/coordtrianglearea.html
                     //|A x ( B y − C y ) + B x ( C y − A y ) + C x ( A y − B y ) / 2|
-                    int area = Math.abs(aX * (bX - cY) + bX * (cY - aY) + cX * (aY - bY))/2;
+                    double area = Math.abs(aX * (bX - cY) + bX * (cY - aY) + cX * (aY - bY))/2;
                     if(area > maxArea){
                         maxArea = area;
                     }
@@ -1187,7 +1187,7 @@ public class Algothrim {
      * all array elements equal where a move is incrementing n -1 elements by 1
      *
      * [1,2,3] => [2,3,3] => [3,4,3] => [4,4,4]
-     *
+     *  [1, integer max]
      */
 
     public int minMoves(int[] nums){
