@@ -17,7 +17,7 @@ public class main {
 
         //System.out.println("+" == "+");
         //testBaseBall();
-        testMinMoves();
+        testFindShortestSubArray();
 
 
     }
@@ -328,5 +328,23 @@ public class main {
 
         System.out.println(algo.minMoves(input));
         System.out.println(algo.minMoves(input2));
+    }
+
+    private static void testTwoSum(){
+        int[] numbers = new int[]{2,7,11,15};
+
+        int[] result = algo.twoSum(numbers,22);
+        for(int i =0; i < result.length; i ++){
+            System.out.print(result[i] + " ");
+        }
+    }
+
+    private static void testFindShortestSubArray(){
+
+        int[] input1 = {1,2,2,3,1,4,2};
+        int[] input2 = {1,2,2,3,1,4,4};
+
+        System.out.println(algo.findShortestSubArray(input1));
+        System.out.println(algo.findShortestSubArray(input2));
     }
 }

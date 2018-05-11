@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.*;
 import javafx.util.Pair;
@@ -1221,6 +1222,88 @@ public class Algothrim {
             index ++;
         }
         return index;
+    }
+
+    /**
+     * Given an array of integers that is already sorted in ascending order, find two numbers such that they add up to a specific
+     * target number
+     *
+     * The function twoSum should return indices of the two numbers such that they add up to the target
+     * where index 1 must be less than index 2
+     *
+     * non zero-base solution
+     * each input owuld have exactly one solution and you may not use the same element twice
+     *
+     * [2,7,11,15]
+     */
+
+    public int[] twoSum(int[] numbers, int target){
+        int big = numbers.length - 1;
+        int small = 0;
+        boolean found = false;
+
+        while(!found && small <= big){
+
+           if(numbers[big] > target){
+               big --;
+           }else if(numbers[big] + numbers[small] == target){
+               found = true;
+           } else{
+               int tempSum = numbers[big] + numbers[small];
+               if(tempSum > target){
+                   big --;
+               }else{
+                   small ++;
+               }
+           }
+        }
+        return new int[]{small,big};
+    }
+
+    /** Givena a non-empty array of non-negative integers nums, the degree of this array is defined as the maximum
+     * frequency of any one of its elements
+     *
+     * Your task is to find the smallest possible length of a (contiguous) subarray of nums, that has the same
+     * degree as nums
+     *
+     * Input: [1,2,2,3,1]
+     * Output: 2
+     *
+     * [2,2] vs [1,2,2] vs [2,2,3] vs [2,2,3,1] vs [1,2,2,3] vs [1,2,2,3,1]
+     *
+     * Input: [1,2,2,3,1,4,2]
+     * Output: 6
+     */
+
+    public int findShortestSubArray(int[] nums){
+
+        //first put all elements and index in hashmap
+
+        HashMap<Integer, ArrayList<Integer>> maxFreq = new HashMap<>();
+        for(int i = 0; i < nums.length; i ++){
+            if(maxFreq.containsKey(nums[i])){
+                maxFreq.get(nums[i]).add(i);
+            }else{
+                ArrayList<Integer> indexs = new ArrayList<>();
+                indexs.add(i);
+                maxFreq.put(nums[i], indexs);
+            }
+        }
+
+        //find the max frequent
+        int currentMinDisatnce = nums.length;
+        Iterator it = maxFreq.entrySet().iterator();
+        int max = 0;
+
+        while(it.hasNext()){
+            Map.Entry<Integer,ArrayList<Integer>> next = (Map.Entry)it.next(); //hashmap iterator
+            if(next.getValue().size() >= max){
+                ArrayList<Integer> currentArrayList = next.getValue();
+                max = currentArrayList.size();
+                currentMinDisatnce = currentArrayList.get(currentArrayList.size() - 1) - currentArrayList.get(0) + 1 ;
+            }
+        }
+        return currentMinDisatnce;
     }
 }
 
